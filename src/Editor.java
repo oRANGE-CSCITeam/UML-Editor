@@ -1,7 +1,17 @@
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontMetrics;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.Insets;
+import java.awt.Rectangle;
+import java.awt.Shape;
+import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.FileReader;
+import java.text.AttributedCharacterIterator;
 import javax.swing.JFileChooser;
 import javax.swing.JTextArea;
 
@@ -51,6 +61,11 @@ public class Editor extends javax.swing.JFrame {
         jToolBar1.setRollover(true);
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel2MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -122,6 +137,12 @@ public class Editor extends javax.swing.JFrame {
         
          
     }//GEN-LAST:event_jMenu1ActionPerformed
+
+    private void jPanel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseClicked
+        jPanel2.getGraphics().setColor(Color.red);
+        jPanel2.getGraphics().fillRect(evt.getX() - 50, evt.getY() - 25, 100, 50); 
+ 
+    }//GEN-LAST:event_jPanel2MouseClicked
 
     /**
      * @param args the command line arguments
