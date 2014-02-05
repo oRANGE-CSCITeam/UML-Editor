@@ -15,15 +15,11 @@ import java.text.AttributedCharacterIterator;
 import javax.swing.JFileChooser;
 import javax.swing.JTextArea;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 
 /**
- *
- * @author eddy30
+ * Editor where the main UML Diagram will be created
+ * @author oRange
  */
 public class Editor extends javax.swing.JFrame {
 
@@ -138,6 +134,10 @@ public class Editor extends javax.swing.JFrame {
          
     }//GEN-LAST:event_jMenu1ActionPerformed
 
+    /**
+     * Creates black rectangles using the mouse.
+     * @param evt 
+     */
     private void jPanel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseClicked
         jPanel2.getGraphics().setColor(Color.red);
         jPanel2.getGraphics().fillRect(evt.getX() - 50, evt.getY() - 25, 100, 50); 

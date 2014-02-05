@@ -12,15 +12,11 @@ import javax.swing.JLayeredPane;
 import javax.swing.JTabbedPane;
 import javax.swing.WindowConstants;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 
 /**
- *
- * @author eddy30
+ * Window where the user chooses to create a new project
+ * @author oRANGE 
  */
 public class UmlEditor extends javax.swing.JFrame {
     JDesktopPane desktop;
@@ -89,6 +85,10 @@ public class UmlEditor extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Button calling the Editor window.
+     * @param evt 
+     */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         String[] args = null;
         // TODO add your handling code here:
