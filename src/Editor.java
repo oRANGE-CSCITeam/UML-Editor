@@ -14,6 +14,7 @@ import java.io.FileReader;
 import java.text.AttributedCharacterIterator;
 import javax.swing.JFileChooser;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 
 
@@ -80,8 +81,8 @@ public class Editor extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 623, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(0, 629, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -105,6 +106,11 @@ public class Editor extends javax.swing.JFrame {
         });
 
         jMenuItem1.setText("Save");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem1);
 
         jMenuBar1.add(jMenu1);
@@ -144,6 +150,23 @@ public class Editor extends javax.swing.JFrame {
  
     }//GEN-LAST:event_jPanel2MouseClicked
 
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+        JTextField filename = new JTextField();
+        JTextField dir = new JTextField();
+        JFileChooser c = new JFileChooser();
+        // Demonstrate "Save" dialog:
+        int rVal = c.showSaveDialog(this);
+        if (rVal == JFileChooser.APPROVE_OPTION) {
+          filename.setText(c.getSelectedFile().getName());
+         dir.setText(c.getCurrentDirectory().toString());
+            }
+      if (rVal == JFileChooser.CANCEL_OPTION) {
+        filename.setText("You pressed cancel");
+        dir.setText("");
+      }
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -170,7 +193,9 @@ public class Editor extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Editor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+    try{ 
+                Thread.currentThread().sleep(2000);
+            } catch (InterruptedException ex) {}
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
