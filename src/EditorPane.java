@@ -21,11 +21,14 @@ import models.ClassObject;
  */
 public class EditorPane extends JPanel {
     private boolean canAddClassObject;
+    private int isDragging;
     private int j = 0;
     ArrayList<ClassObject> classObjectList = new ArrayList();
     
     public EditorPane() {
         canAddClassObject = false;
+        isDragging = -1;
+        
         //Listen to click and will create a new classObject to be displayed.
         addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent evt) {
@@ -33,14 +36,26 @@ public class EditorPane extends JPanel {
                     classObjectList.add(new ClassObject("My SuperClass", evt.getX() - 20, evt.getY() - 20));
                     classObjectList.get(j).addAttribute("names", true);
                     classObjectList.get(j).addAttribute("numbers", false);
-                    j++;
-                    
+                    j++;  
                 }
                 repaint();
             }
             
         });
         
+        addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent me) {
+                if(classObjectList.size() > 0){
+                    for(int i = 0; i < classObjectList.size(); i++){
+                        if((me.getX() > classObjectList.get(i).getxPos())
+                                && (me.getY() > classObjectList.get(i).getyPos()) && (me.getX() < (classObjectList.get(i).getWidth() + classObjectList.get(i).getxPos())) && (me.getY() < (classObjectList.get(i).getHeight()) + classObjectList.get(i).getyPos())){
+                                       isDragging = i;         
+                        }
+                    } 
+                }
+            }
+        });
+
         
         addMouseMotionListener(new MouseAdapter() {
             public void mouseDragged(MouseEvent evt) {
@@ -48,13 +63,13 @@ public class EditorPane extends JPanel {
                     for(int i = 0; i < classObjectList.size(); i++){
                         if((evt.getX() > classObjectList.get(i).getxPos())
                                 && (evt.getY() > classObjectList.get(i).getyPos()) && (evt.getX() < (classObjectList.get(i).getWidth() + classObjectList.get(i).getxPos())) && (evt.getY() < (classObjectList.get(i).getHeight()) + classObjectList.get(i).getyPos())){
-                                    moveClassObject(classObjectList.get(i),evt.getX() - 20, evt.getY() - 20);
+                                    
+                                    moveClassObject(classObjectList.get(isDragging),evt.getX() - 20, evt.getY() - 20);
+                                    
                         }
                     }
-                }
-                
-            }
-            
+                }   
+            }      
         });
         
     }
@@ -91,7 +106,7 @@ public class EditorPane extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         // Draw Text
-        //g.drawString("Click to insert Class Objects", 10, 20);
+        g.drawString("Click to insert Class Objects", 10, 20);
         
         //Draw All Class Objects
         for(int i = 0; i < classObjectList.size(); i++){
