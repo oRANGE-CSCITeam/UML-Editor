@@ -29,21 +29,6 @@ public class EditorPane extends JPanel {
         //This is to determine which of the classObjectes is being dragged in the List
         isDragging = -1;
 
-        //Listen to click and will create a new classObject to be displayed.
-        addMouseListener(new MouseAdapter() {
-            public void mousePressed(MouseEvent evt) {
-                if (canAddClassObject) {
-                    //classObjectList.add(new ClassObject("My SuperClass", evt.getX() - 30, evt.getY() - 20));
-                    //classObjectList.get(j).addAttribute("names", true);
-                    //classObjectList.get(j).addAttribute("numbers", false);
-                    //classObjectList.get(j).addAttribute("children", false);
-                    
-                   // j++;
-                }
-                repaint();
-            }
-        });
-
         //This will determine which is class object is being clicked on to be dragged
         addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent me) {
@@ -80,7 +65,6 @@ public class EditorPane extends JPanel {
                 }
             }
         });
-
     }
 
     //This takes the classObject and coordinates to be moved to

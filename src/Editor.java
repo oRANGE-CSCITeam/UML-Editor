@@ -291,6 +291,9 @@ public class Editor extends javax.swing.JFrame {
         obj ++;
         editorPane1.repaint();
         jDialog1.dispose();
+        jTextField1.setText("");
+        jTextField2.setText("");
+        jTextField3.setText("");
         jToggleButton3.doClick();
         editorPane1.toggleCanAddClassObject();
     }//GEN-LAST:event_jButton1ActionPerformed
