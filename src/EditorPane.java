@@ -33,12 +33,12 @@ public class EditorPane extends JPanel {
         addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent evt) {
                 if (canAddClassObject) {
-                    classObjectList.add(new ClassObject("My SuperClass", evt.getX() - 30, evt.getY() - 20));
-                    classObjectList.get(j).addAttribute("names", true);
-                    classObjectList.get(j).addAttribute("numbers", false);
-                    classObjectList.get(j).addAttribute("children", false);
+                    //classObjectList.add(new ClassObject("My SuperClass", evt.getX() - 30, evt.getY() - 20));
+                    //classObjectList.get(j).addAttribute("names", true);
+                    //classObjectList.get(j).addAttribute("numbers", false);
+                    //classObjectList.get(j).addAttribute("children", false);
                     
-                    j++;
+                   // j++;
                 }
                 repaint();
             }
@@ -130,4 +130,15 @@ public class EditorPane extends JPanel {
             canAddClassObject = false;
         }
     }
+
+    public boolean isCanAddClassObject() {
+        return canAddClassObject;
+    }
+
+    public ArrayList<ClassObject> getClassObjectList() {
+        return classObjectList;
+    }
+    
+    
+    
 }

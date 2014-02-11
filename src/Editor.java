@@ -1,6 +1,8 @@
 
+import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JTextField;
+import models.ClassObject;
 
 
 
@@ -10,7 +12,7 @@ import javax.swing.JTextField;
  */
 public class Editor extends javax.swing.JFrame {
     
-
+    private int addClassX, addClassY; 
     /**
      * Creates new form Editor
      */
@@ -27,6 +29,11 @@ public class Editor extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jDialog1 = new javax.swing.JDialog();
+        jLabel1 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         editorPane1 = new EditorPane();
         jToolBar1 = new javax.swing.JToolBar();
@@ -36,11 +43,64 @@ public class Editor extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
+        jDialog1.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        jDialog1.setSize(new java.awt.Dimension(562, 370));
+
+        jLabel1.setText("Class Name");
+
+        jButton1.setText("Done");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("Class Name is: ");
+
+        javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
+        jDialog1.getContentPane().setLayout(jDialog1Layout);
+        jDialog1Layout.setHorizontalGroup(
+            jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDialog1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(66, 66, 66))
+            .addGroup(jDialog1Layout.createSequentialGroup()
+                .addGap(56, 56, 56)
+                .addGroup(jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addGroup(jDialog1Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(78, 78, 78)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(146, Short.MAX_VALUE))
+        );
+        jDialog1Layout.setVerticalGroup(
+            jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jDialog1Layout.createSequentialGroup()
+                .addGap(51, 51, 51)
+                .addGroup(jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(74, 74, 74)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 140, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(32, 32, 32))
+        );
+
+        jDialog1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabel1, jTextField1});
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jTabbedPane1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         editorPane1.setBackground(new java.awt.Color(255, 255, 255));
+        editorPane1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                editorPane1MousePressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout editorPane1Layout = new javax.swing.GroupLayout(editorPane1);
         editorPane1.setLayout(editorPane1Layout);
@@ -118,6 +178,13 @@ public class Editor extends javax.swing.JFrame {
         editorPane1.toggleCanAddClassObject();
     }//GEN-LAST:event_jMenu1ActionPerformed
 
+    public JDialog getjDialog1() {
+        return jDialog1;
+    }
+    public void setjDialog1Visible(){
+        jDialog1.setVisible(true);
+    }
+
   
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
@@ -141,6 +208,25 @@ public class Editor extends javax.swing.JFrame {
         editorPane1.toggleCanAddClassObject();
     }//GEN-LAST:event_jToggleButton3MouseClicked
 
+    private void editorPane1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editorPane1MousePressed
+        // TODO add your handling code here:
+        if(editorPane1.isCanAddClassObject()) {
+            addClassX = evt.getX();
+            addClassY = evt.getY();
+            jDialog1.setVisible(true);
+        }
+    }//GEN-LAST:event_editorPane1MousePressed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        String className = jTextField1.getText();
+        editorPane1.getClassObjectList().add(new ClassObject(className, addClassX - 30, addClassY - 20));
+        editorPane1.repaint();
+        jDialog1.dispose();
+        jToggleButton3.doClick();
+        editorPane1.toggleCanAddClassObject();
+    }//GEN-LAST:event_jButton1ActionPerformed
+    
     /**
      * @param args the command line arguments
      */
@@ -178,15 +264,21 @@ public class Editor extends javax.swing.JFrame {
         });
         
        
+               
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private EditorPane editorPane1;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JDialog jDialog1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JToggleButton jToggleButton3;
     private javax.swing.JToolBar jToolBar1;
     // End of variables declaration//GEN-END:variables
