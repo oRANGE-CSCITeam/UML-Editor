@@ -38,7 +38,7 @@ public class ClassObject {
         this.xPos = xPos;
         this.yPos = yPos;
 
-        this.width = name.length() * widthScale + 5;
+        this.width = setWidth() * widthScale + 10;
         this.height = 20;
     }
 
@@ -52,27 +52,33 @@ public class ClassObject {
         } else {
             attributes.add("+ " + attributeName);
         }
+        this.width = setWidth() * widthScale + 10;
         this.height += 20;
     }
 
     public void removeAttribute(int index) {
         attributes.remove(index);
+        this.width = setWidth() * widthScale + 10;
     }
 
     public void removeAllAtributes() {
         attributes.clear();
+        this.width = setWidth() * widthScale + 10;
     }
 
     public void addOperation(String operationName) {
         operations.add(operationName);
+        this.width = setWidth() * widthScale + 10;
     }
 
     public void removeOperation(int index) {
         operations.remove(index);
+        this.width = setWidth() * widthScale + 10;
     }
 
     public void removeAllOperations() {
         operations.clear();
+        this.width = setWidth() * widthScale + 10;
     }
 
     public void addRelationship(ClassObject classObject, Relationship relationship) {
@@ -155,5 +161,32 @@ public class ClassObject {
 
     public void setIsClicked(boolean bool) {
         isClicked = bool;
+    }
+    
+    public int getLongestAttribute() {
+        int max = 0;
+        int setMax = 0;
+        for(int i = 0; i < attributes.size(); i++)
+            if(attributes.get(i).length() >= attributes.get(max).length()){
+                max = i;
+                setMax = attributes.get(max).length();
+            }
+        return setMax;    
+    }
+    
+        public int getLongestOperation() {
+        int max = 0;
+        int setMax = 0;
+        for(int i = 0; i < operations.size(); i++)
+            if(operations.get(i).length() >= operations.get(max).length()){
+                max = i;
+                setMax = operations.get(max).length();
+            }
+        return setMax;    
+    }
+    
+    public int setWidth(){
+        int max = Math.max(name.length(), getLongestAttribute());
+        return Math.max(max, getLongestOperation());
     }
 }
