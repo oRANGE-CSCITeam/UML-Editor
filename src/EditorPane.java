@@ -36,6 +36,8 @@ public class EditorPane extends JPanel {
                     classObjectList.add(new ClassObject("My SuperClass", evt.getX() - 30, evt.getY() - 20));
                     classObjectList.get(j).addAttribute("names", true);
                     classObjectList.get(j).addAttribute("numbers", false);
+                    classObjectList.get(j).addAttribute("children", false);
+                    
                     j++;
                 }
                 repaint();
@@ -73,15 +75,8 @@ public class EditorPane extends JPanel {
         addMouseMotionListener(new MouseAdapter() {
             public void mouseDragged(MouseEvent evt) {
                 if (classObjectList.size() > 0 && isDragging >= 0) {
-                    for (int i = 0; i < classObjectList.size(); i++) {
-                        if ((evt.getX() > classObjectList.get(i).getxPos())
-                                && (evt.getY() > classObjectList.get(i).getyPos())
-                                && (evt.getX() < (classObjectList.get(i).getWidth() + classObjectList.get(i).getxPos()))
-                                && (evt.getY() < (classObjectList.get(i).getHeight()) + classObjectList.get(i).getyPos())) {
-                            moveClassObject(classObjectList.get(isDragging), evt.getX() - xOffSet, evt.getY() - yOffSet);
-                            repaint();
-                        }
-                    }
+                    moveClassObject(classObjectList.get(isDragging), evt.getX() - xOffSet, evt.getY() - yOffSet);
+                    repaint(); 
                 }
             }
         });
