@@ -26,7 +26,10 @@ public class EditorPane extends JPanel {
     ArrayList<ClassObject> classObjectList = new ArrayList();
     
     public EditorPane() {
+        //If the add class button toggled "on" this will be true and a new classObject can be added
         canAddClassObject = false;
+        
+        //This is to determine which of the classObjectes is being dragged in the List
         isDragging = -1;
         
         //Listen to click and will create a new classObject to be displayed.
@@ -43,6 +46,7 @@ public class EditorPane extends JPanel {
             
         });
         
+        //This will determine which is class object is being clicked on to be dragged
         addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent me) {
                 if(classObjectList.size() > 0){
@@ -56,7 +60,7 @@ public class EditorPane extends JPanel {
             }
         });
 
-        
+        //This will dragg the determine class object box
         addMouseMotionListener(new MouseAdapter() {
             public void mouseDragged(MouseEvent evt) {
                 if(classObjectList.size() > 0){
@@ -64,8 +68,8 @@ public class EditorPane extends JPanel {
                         if((evt.getX() > classObjectList.get(i).getxPos())
                                 && (evt.getY() > classObjectList.get(i).getyPos()) && (evt.getX() < (classObjectList.get(i).getWidth() + classObjectList.get(i).getxPos())) && (evt.getY() < (classObjectList.get(i).getHeight()) + classObjectList.get(i).getyPos())){
                                     
-                                    moveClassObject(classObjectList.get(isDragging),evt.getX() - 20, evt.getY() - 20);
-                                    
+                                    moveClassObject(classObjectList.get(isDragging),evt.getX() - 30, evt.getY() - 30);
+                                    repaint();
                         }
                     }
                 }   
@@ -75,7 +79,7 @@ public class EditorPane extends JPanel {
     }
     
     
-    
+    //This takes the classObject and coordinates to be moved to
     private void moveClassObject(ClassObject classObject, int x, int y) {
         // Current classObject state, stored as final variables 
         // to avoid repeat invocations of the same methods.
@@ -102,7 +106,7 @@ public class EditorPane extends JPanel {
         } 
     }
     
-    
+    //This method paints all components in the EditorPane
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         // Draw Text
@@ -114,6 +118,7 @@ public class EditorPane extends JPanel {
         }   
     }  
     
+    //This method sets if a new Class object can be added
     public void toggleCanAddClassObject(){   
         if(!canAddClassObject){
             canAddClassObject = true;

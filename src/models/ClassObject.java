@@ -155,11 +155,7 @@ public class ClassObject {
         return isClicked;
     }
     
-    public void toggleIsClicked(){
-        if(!isClicked){
-            isClicked = true;
-        } else{
-            isClicked = false;
-        }
+    public void setIsClicked(boolean bool) {
+        isClicked = bool;
     }
 }
