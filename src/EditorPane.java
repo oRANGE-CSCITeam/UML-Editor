@@ -1,61 +1,58 @@
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import models.ClassObject;
 
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * The EditorPane is the container which will draw all of the 2D graphics of the
+ * UML Editor. It has to maintain lists of the different types of objects it holds.
  */
-
 /**
  *
  * @author marcos
  */
 public class EditorPane extends JPanel {
+
     private boolean canAddClassObject;
     private int isDragging;
     private int j = 0;
     ArrayList<ClassObject> classObjectList = new ArrayList();
-    
+
     public EditorPane() {
         //If the add class button toggled "on" this will be true and a new classObject can be added
         canAddClassObject = false;
-        
         //This is to determine which of the classObjectes is being dragged in the List
         isDragging = -1;
-        
+
         //Listen to click and will create a new classObject to be displayed.
         addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent evt) {
-                if(canAddClassObject){
+                if (canAddClassObject) {
                     classObjectList.add(new ClassObject("My SuperClass", evt.getX() - 20, evt.getY() - 20));
                     classObjectList.get(j).addAttribute("names", true);
                     classObjectList.get(j).addAttribute("numbers", false);
-                    j++;  
+                    j++;
                 }
                 repaint();
             }
-            
         });
-        
+
         //This will determine which is class object is being clicked on to be dragged
         addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent me) {
-                if(classObjectList.size() > 0){
-                    for(int i = 0; i < classObjectList.size(); i++){
-                        if((me.getX() > classObjectList.get(i).getxPos())
-                                && (me.getY() > classObjectList.get(i).getyPos()) && (me.getX() < (classObjectList.get(i).getWidth() + classObjectList.get(i).getxPos())) && (me.getY() < (classObjectList.get(i).getHeight()) + classObjectList.get(i).getyPos())){
-                                       isDragging = i;         
+                if (classObjectList.size() > 0) {
+                    for (int i = 0; i < classObjectList.size(); i++) {
+                        if ((me.getX() > classObjectList.get(i).getxPos())
+                                && (me.getY() > classObjectList.get(i).getyPos())
+                                && (me.getX() < (classObjectList.get(i).getWidth() + classObjectList.get(i).getxPos()))
+                                && (me.getY() < (classObjectList.get(i).getHeight()) + classObjectList.get(i).getyPos())) {
+                            isDragging = i;
                         }
-                    } 
+                    }
                 }
             }
         });
@@ -63,22 +60,22 @@ public class EditorPane extends JPanel {
         //This will dragg the determine class object box
         addMouseMotionListener(new MouseAdapter() {
             public void mouseDragged(MouseEvent evt) {
-                if(classObjectList.size() > 0){
-                    for(int i = 0; i < classObjectList.size(); i++){
-                        if((evt.getX() > classObjectList.get(i).getxPos())
-                                && (evt.getY() > classObjectList.get(i).getyPos()) && (evt.getX() < (classObjectList.get(i).getWidth() + classObjectList.get(i).getxPos())) && (evt.getY() < (classObjectList.get(i).getHeight()) + classObjectList.get(i).getyPos())){
-                                    
-                                    moveClassObject(classObjectList.get(isDragging),evt.getX() - 30, evt.getY() - 30);
-                                    repaint();
+                if (classObjectList.size() > 0) {
+                    for (int i = 0; i < classObjectList.size(); i++) {
+                        if ((evt.getX() > classObjectList.get(i).getxPos())
+                                && (evt.getY() > classObjectList.get(i).getyPos())
+                                && (evt.getX() < (classObjectList.get(i).getWidth() + classObjectList.get(i).getxPos()))
+                                && (evt.getY() < (classObjectList.get(i).getHeight()) + classObjectList.get(i).getyPos())) {
+                            moveClassObject(classObjectList.get(isDragging), evt.getX() - 30, evt.getY() - 30);
+                            repaint();
                         }
                     }
-                }   
-            }      
+                }
+            }
         });
-        
+
     }
-    
-    
+
     //This takes the classObject and coordinates to be moved to
     private void moveClassObject(ClassObject classObject, int x, int y) {
         // Current classObject state, stored as final variables 
@@ -89,40 +86,40 @@ public class EditorPane extends JPanel {
         final int CURR_H = classObject.getHeight();
         final int OFFSET = 1;
 
-        if ((CURR_X!=x) || (CURR_Y!=y)) {
+        if ((CURR_X != x) || (CURR_Y != y)) {
 
             // The classObject is moving, repaint background 
             // over the old classObject location. 
-            repaint(CURR_X,CURR_Y,CURR_W+OFFSET,CURR_H+OFFSET);
+            repaint(CURR_X, CURR_Y, CURR_W + OFFSET, CURR_H + OFFSET);
 
             // Update coordinates.
             classObject.setxPos(x);
             classObject.setyPos(y);
 
             // Repaint the classObject at the new location.
-            repaint(classObject.getxPos(), classObject.getxPos(), 
-                    classObject.getWidth()+OFFSET, 
-                    classObject.getHeight()+OFFSET);
-        } 
+            repaint(classObject.getxPos(), classObject.getxPos(),
+                    classObject.getWidth() + OFFSET,
+                    classObject.getHeight() + OFFSET);
+        }
     }
-    
+
     //This method paints all components in the EditorPane
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         // Draw Text
         g.drawString("Click to insert Class Objects", 10, 20);
-        
+
         //Draw All Class Objects
-        for(int i = 0; i < classObjectList.size(); i++){
+        for (int i = 0; i < classObjectList.size(); i++) {
             classObjectList.get(i).display(g);
-        }   
-    }  
-    
+        }
+    }
+
     //This method sets if a new Class object can be added
-    public void toggleCanAddClassObject(){   
-        if(!canAddClassObject){
+    public void toggleCanAddClassObject() {
+        if (!canAddClassObject) {
             canAddClassObject = true;
-        } else{
+        } else {
             canAddClassObject = false;
         }
     }
