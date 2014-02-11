@@ -19,6 +19,7 @@ public class EditorPane extends JPanel {
 
     private boolean canAddClassObject;
     private int isDragging;
+    private int xOffSet, yOffSet;
     private int j = 0;
     ArrayList<ClassObject> classObjectList = new ArrayList();
 
@@ -32,7 +33,7 @@ public class EditorPane extends JPanel {
         addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent evt) {
                 if (canAddClassObject) {
-                    classObjectList.add(new ClassObject("My SuperClass", evt.getX() - 20, evt.getY() - 20));
+                    classObjectList.add(new ClassObject("My SuperClass", evt.getX() - 30, evt.getY() - 20));
                     classObjectList.get(j).addAttribute("names", true);
                     classObjectList.get(j).addAttribute("numbers", false);
                     j++;
@@ -51,8 +52,19 @@ public class EditorPane extends JPanel {
                                 && (me.getX() < (classObjectList.get(i).getWidth() + classObjectList.get(i).getxPos()))
                                 && (me.getY() < (classObjectList.get(i).getHeight()) + classObjectList.get(i).getyPos())) {
                             isDragging = i;
+                            xOffSet = me.getX() - classObjectList.get(i).getxPos();
+                            yOffSet = me.getY() - classObjectList.get(i).getyPos();
                         }
                     }
+                }
+            }
+        });
+        
+        //This is to reset the class object being dragged to none
+        addMouseListener(new MouseAdapter() {
+            public void mouseReleased(MouseEvent evt) {
+                if(isDragging >= 0) {
+                    isDragging = -1;
                 }
             }
         });
@@ -60,13 +72,13 @@ public class EditorPane extends JPanel {
         //This will dragg the determine class object box
         addMouseMotionListener(new MouseAdapter() {
             public void mouseDragged(MouseEvent evt) {
-                if (classObjectList.size() > 0) {
+                if (classObjectList.size() > 0 && isDragging >= 0) {
                     for (int i = 0; i < classObjectList.size(); i++) {
                         if ((evt.getX() > classObjectList.get(i).getxPos())
                                 && (evt.getY() > classObjectList.get(i).getyPos())
                                 && (evt.getX() < (classObjectList.get(i).getWidth() + classObjectList.get(i).getxPos()))
                                 && (evt.getY() < (classObjectList.get(i).getHeight()) + classObjectList.get(i).getyPos())) {
-                            moveClassObject(classObjectList.get(isDragging), evt.getX() - 30, evt.getY() - 30);
+                            moveClassObject(classObjectList.get(isDragging), evt.getX() - xOffSet, evt.getY() - yOffSet);
                             repaint();
                         }
                     }
