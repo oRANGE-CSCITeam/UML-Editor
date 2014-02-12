@@ -40,6 +40,9 @@ public class Editor extends javax.swing.JFrame {
         jTextField3 = new javax.swing.JTextField();
         jRadioButton3 = new javax.swing.JRadioButton();
         jRadioButton4 = new javax.swing.JRadioButton();
+        jDialog2 = new javax.swing.JDialog();
+        jLabel2 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         editorPane1 = new EditorPane();
         jToolBar1 = new javax.swing.JToolBar();
@@ -134,6 +137,42 @@ public class Editor extends javax.swing.JFrame {
         );
 
         jDialog1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabel1, jLabel3, jTextField1});
+
+        jDialog2.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        jDialog2.setSize(new java.awt.Dimension(245, 155));
+
+        jLabel2.setText("Class must have a class name");
+
+        jButton2.setText("OK");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jDialog2Layout = new javax.swing.GroupLayout(jDialog2.getContentPane());
+        jDialog2.getContentPane().setLayout(jDialog2Layout);
+        jDialog2Layout.setHorizontalGroup(
+            jDialog2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jDialog2Layout.createSequentialGroup()
+                .addGroup(jDialog2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jDialog2Layout.createSequentialGroup()
+                        .addGap(31, 31, 31)
+                        .addComponent(jLabel2))
+                    .addGroup(jDialog2Layout.createSequentialGroup()
+                        .addGap(81, 81, 81)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(26, Short.MAX_VALUE))
+        );
+        jDialog2Layout.setVerticalGroup(
+            jDialog2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jDialog2Layout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addComponent(jLabel2)
+                .addGap(39, 39, 39)
+                .addComponent(jButton2)
+                .addContainerGap(31, Short.MAX_VALUE))
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -263,17 +302,23 @@ public class Editor extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        
         String className = jTextField1.getText();
         String attribute1 = jTextField2.getText();
         String attribute2 = jTextField3.getText();
         boolean type = false;
+        if(className.equals("")){
+            jDialog2.setVisible(true);
+        } else {
+            editorPane1.getClassObjectList().add(new ClassObject(className, addClassX - 30, addClassY - 20));
+        }
         if(jRadioButton1.isSelected()){
             type = true;
         } 
         if(jRadioButton2.isSelected()){
             type=false;
         }
-        editorPane1.getClassObjectList().add(new ClassObject(className, addClassX - 30, addClassY - 20));
+        //editorPane1.getClassObjectList().add(new ClassObject(className, addClassX - 30, addClassY - 20));
         if(jRadioButton1.isSelected()){
             type = true;
         } 
@@ -297,6 +342,13 @@ public class Editor extends javax.swing.JFrame {
         jToggleButton3.doClick();
         editorPane1.toggleCanAddClassObject();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        jDialog2.setVisible(false);
+    }//GEN-LAST:event_jButton2ActionPerformed
+    
+    
     
     /**
      * @param args the command line arguments
@@ -324,11 +376,13 @@ public class Editor extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Editor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-    try{ 
+        
+        try{ 
                 Thread.currentThread().sleep(2000);
             } catch (InterruptedException ex) {}
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new Editor().setVisible(true);
             }
@@ -341,8 +395,11 @@ public class Editor extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private EditorPane editorPane1;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JDialog jDialog1;
+    private javax.swing.JDialog jDialog2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
