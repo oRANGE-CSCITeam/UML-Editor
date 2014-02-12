@@ -9,6 +9,9 @@
           <Dimension value="[562, 370]"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="windowClosing" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="jDialog1WindowClosing"/>
+      </Events>
 
       <Layout>
         <DimensionLayout dim="0">

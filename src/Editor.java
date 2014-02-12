@@ -54,6 +54,11 @@ public class Editor extends javax.swing.JFrame {
 
         jDialog1.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         jDialog1.setSize(new java.awt.Dimension(562, 370));
+        jDialog1.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                jDialog1WindowClosing(evt);
+            }
+        });
 
         jLabel1.setText("Class Name");
 
@@ -301,52 +306,58 @@ public class Editor extends javax.swing.JFrame {
     }//GEN-LAST:event_editorPane1MousePressed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
         
         String className = jTextField1.getText();
         String attribute1 = jTextField2.getText();
         String attribute2 = jTextField3.getText();
         boolean type = false;
+        
         if(className.equals("")){
             jDialog2.setVisible(true);
         } else {
             editorPane1.getClassObjectList().add(new ClassObject(className, addClassX - 30, addClassY - 20));
+
+            if(jRadioButton1.isSelected()){
+                type = true;
+            } 
+            if(jRadioButton2.isSelected()){
+                type=false;
+            }
+            //editorPane1.getClassObjectList().add(new ClassObject(className, addClassX - 30, addClassY - 20));
+            if(jRadioButton1.isSelected()){
+                type = true;
+            } 
+            if(jRadioButton2.isSelected()){
+                type=false;
+            }
+            editorPane1.getClassObjectList().get(obj).addAttribute(attribute1,type);
+            if(jRadioButton3.isSelected()){
+                type = true;
+            } 
+            if(jRadioButton4.isSelected()){
+                type=false;
+            }
+            editorPane1.getClassObjectList().get(obj).addAttribute(attribute2,type);
+            obj ++;
+            editorPane1.repaint();
+            jDialog1.dispose();
+            jTextField1.setText("");
+            jTextField2.setText("");
+            jTextField3.setText("");
+            jToggleButton3.doClick();
+            editorPane1.toggleCanAddClassObject();
         }
-        if(jRadioButton1.isSelected()){
-            type = true;
-        } 
-        if(jRadioButton2.isSelected()){
-            type=false;
-        }
-        //editorPane1.getClassObjectList().add(new ClassObject(className, addClassX - 30, addClassY - 20));
-        if(jRadioButton1.isSelected()){
-            type = true;
-        } 
-        if(jRadioButton2.isSelected()){
-            type=false;
-        }
-        editorPane1.getClassObjectList().get(obj).addAttribute(attribute1,type);
-        if(jRadioButton3.isSelected()){
-            type = true;
-        } 
-        if(jRadioButton4.isSelected()){
-            type=false;
-        }
-        editorPane1.getClassObjectList().get(obj).addAttribute(attribute2,type);
-        obj ++;
-        editorPane1.repaint();
-        jDialog1.dispose();
-        jTextField1.setText("");
-        jTextField2.setText("");
-        jTextField3.setText("");
-        jToggleButton3.doClick();
-        editorPane1.toggleCanAddClassObject();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         jDialog2.setVisible(false);
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jDialog1WindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_jDialog1WindowClosing
+        jToggleButton3.doClick();
+        editorPane1.toggleCanAddClassObject();
+    }//GEN-LAST:event_jDialog1WindowClosing
     
     
     
