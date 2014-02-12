@@ -69,7 +69,7 @@ public class ClassObject {
     }
 
     public void addOperation(String operationName) {
-        if(!SoperationName.equals("")){
+        if(!operationName.equals("")){
             operations.add(operationName);
             this.width = setWidth() * widthScale + 10;
         }
