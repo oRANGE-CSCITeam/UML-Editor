@@ -47,13 +47,15 @@ public class ClassObject {
      * attribute with the parameter boolean isPrivate.
      */
     public void addAttribute(String attributeName, boolean isPrivate) {
-        if (isPrivate) {
-            attributes.add("- " + attributeName);
-        } else {
-            attributes.add("+ " + attributeName);
+        if(!attributeName.equals("")){
+            if (isPrivate) {
+                attributes.add("- " + attributeName);
+            } else {
+                attributes.add("+ " + attributeName);
+            }
+            this.width = setWidth() * widthScale + 10;
+            this.height += 20;
         }
-        this.width = setWidth() * widthScale + 10;
-        this.height += 20;
     }
 
     public void removeAttribute(int index) {
@@ -67,8 +69,10 @@ public class ClassObject {
     }
 
     public void addOperation(String operationName) {
-        operations.add(operationName);
-        this.width = setWidth() * widthScale + 10;
+        if(!SoperationName.equals("")){
+            operations.add(operationName);
+            this.width = setWidth() * widthScale + 10;
+        }
     }
 
     public void removeOperation(int index) {
