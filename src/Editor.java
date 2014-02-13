@@ -334,18 +334,25 @@ public class Editor extends javax.swing.JFrame {
 
         jTabbedPane1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        editorPane1.setBackground(new java.awt.Color(255, 255, 255));
+        editorPane1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                editorPane1MousePressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout editorPane1Layout = new javax.swing.GroupLayout(editorPane1);
         editorPane1.setLayout(editorPane1Layout);
         editorPane1Layout.setHorizontalGroup(
             editorPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 782, Short.MAX_VALUE)
+            .addGap(0, 664, Short.MAX_VALUE)
         );
         editorPane1Layout.setVerticalGroup(
             editorPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 305, Short.MAX_VALUE)
+            .addGap(0, 413, Short.MAX_VALUE)
         );
 
-        jTabbedPane1.addTab("tab1", editorPane1);
+        jTabbedPane1.addTab("Editor", editorPane1);
 
         jToolBar1.setFloatable(false);
         jToolBar1.setOrientation(javax.swing.SwingConstants.VERTICAL);
@@ -392,12 +399,12 @@ public class Editor extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 807, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 689, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jToolBar1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jTabbedPane1)
-            .addComponent(jToolBar1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 355, Short.MAX_VALUE)
         );
 
         jTabbedPane1.getAccessibleContext().setAccessibleName("Editor");
@@ -441,7 +448,6 @@ public class Editor extends javax.swing.JFrame {
     }//GEN-LAST:event_jToggleButton3MouseClicked
 
     private void editorPane1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editorPane1MousePressed
-        // TODO add your handling code here:
         if (editorPane1.isCanAddClassObject()) {
             addClassX = evt.getX();
             addClassY = evt.getY();
