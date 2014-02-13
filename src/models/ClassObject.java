@@ -30,6 +30,7 @@ public class ClassObject {
     private Color color = Color.orange;
 
     public ClassObject(String newName, int xPos, int yPos) {
+        
         attributes = new ArrayList<String>();
         operations = new ArrayList<String>();
         relationMap = new HashMap<ClassObject, Relationship>();
@@ -137,6 +138,16 @@ public class ClassObject {
         this.yPos = yPos;
     }
 
+    public Color getColor() {
+        return color;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
+    }
+
+    
+    
     public void display(Graphics g) {
         //Draws the box for the entire classObject
         g.setColor(color);
