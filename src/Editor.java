@@ -669,6 +669,7 @@ public class Editor extends javax.swing.JFrame {
         Relationship relation;
         relation = new Relationship(editorPane1.classObjectList.get(0), editorPane1.classObjectList.get(1), 1);
         editorPane1.getRelationList().add(relation);
+        editorPane1.repaint();
     }//GEN-LAST:event_relationTestButtonActionPerformed
 
     
