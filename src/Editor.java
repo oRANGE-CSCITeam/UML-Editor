@@ -3,6 +3,7 @@ import java.awt.Color;
 import java.util.ArrayList;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
+import javax.swing.JPopupMenu;
 import javax.swing.JTextField;
 import javax.swing.ListModel;
 import models.Attribute;
@@ -449,7 +450,7 @@ public class Editor extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 689, Short.MAX_VALUE))
+                .addComponent(jTabbedPane1))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -496,17 +497,6 @@ public class Editor extends javax.swing.JFrame {
         // TODO add your handling code here:
         editorPane1.toggleCanAddClassObject();
     }//GEN-LAST:event_jToggleButton3MouseClicked
-
-    private void editorPane1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editorPane1MousePressed
-        if (editorPane1.isCanAddClassObject()) {
-            addClassX = evt.getX();
-            addClassY = evt.getY();
-            //This is set the addClass Dialog at the center of the Frame and to visible
-            addClassDialog.setLocation(this.getX() + 200, this.getY() + 100);
-            addClassDialog.setVisible(true);
-            this.setEnabled(false);
-        }
-    }//GEN-LAST:event_editorPane1MousePressed
 
     private void addAtributeButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addAtributeButton2ActionPerformed
         String attribute = attributeNameText.getText();
@@ -624,6 +614,18 @@ public class Editor extends javax.swing.JFrame {
         addOperationDialog.dispose();
     }//GEN-LAST:event_addOperationButton2ActionPerformed
 
+    private void editorPane1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editorPane1MousePressed
+        if (editorPane1.isCanAddClassObject()) {
+            addClassX = evt.getX();
+            addClassY = evt.getY();
+            //This is set the addClass Dialog at the center of the Frame and to visible
+            addClassDialog.setLocation(this.getX() + 200, this.getY() + 100);
+            addClassDialog.setVisible(true);
+            this.setEnabled(false);
+        }
+    }//GEN-LAST:event_editorPane1MousePressed
+
+    
     /**
      * @param args the command line arguments
      */

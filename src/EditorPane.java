@@ -1,10 +1,14 @@
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import models.ClassObject;
 
 /*
@@ -21,6 +25,10 @@ public class EditorPane extends JPanel {
     private int isDragging;
     private int xOffSet, yOffSet;
     private int j = 0;
+    private JPopupMenu editorPopMenu;
+    private JMenuItem editorPopItem1;
+    private JMenuItem editorPopItem2;
+    private boolean showPopUp;
     ArrayList<ClassObject> classObjectList = new ArrayList();
 
     public EditorPane() {
@@ -28,7 +36,18 @@ public class EditorPane extends JPanel {
         canAddClassObject = false;
         //This is to determine which of the classObjectes is being dragged in the List
         isDragging = -1;
-
+        showPopUp = false;
+        
+        editorPopMenu = new JPopupMenu();
+        editorPopItem1 = new JMenuItem("Edit");
+        editorPopItem2 = new JMenuItem("Delete");
+        editorPopMenu.add(editorPopItem1);
+        editorPopMenu.add(editorPopItem2);
+        //setComponentPopupMenu(editorPopMenu);
+        
+        
+        
+        
         //This will determine which is class object is being clicked on to be dragged
         addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent me) {
@@ -38,9 +57,14 @@ public class EditorPane extends JPanel {
                                 && (me.getY() > classObjectList.get(i).getyPos())
                                 && (me.getX() < (classObjectList.get(i).getWidth() + classObjectList.get(i).getxPos()))
                                 && (me.getY() < (classObjectList.get(i).getHeight()) + classObjectList.get(i).getyPos())) {
-                            isDragging = i;
-                            xOffSet = me.getX() - classObjectList.get(i).getxPos();
-                            yOffSet = me.getY() - classObjectList.get(i).getyPos();
+                            if(me.isPopupTrigger()) {
+                                editorPopMenu.show(me.getComponent(), me.getX(), me.getY());
+                                togglePopUp();
+                            } else {
+                                isDragging = i;
+                                xOffSet = me.getX() - classObjectList.get(i).getxPos();
+                                yOffSet = me.getY() - classObjectList.get(i).getyPos();
+                            }
                         }
                     }
                 }
@@ -114,6 +138,14 @@ public class EditorPane extends JPanel {
             canAddClassObject = false;
         }
     }
+    
+        public void togglePopUp() {
+        if (!showPopUp) {
+            showPopUp = true;
+        } else {
+            showPopUp = false;
+        }
+    }
 
     public boolean isCanAddClassObject() {
         return canAddClassObject;
@@ -123,6 +155,7 @@ public class EditorPane extends JPanel {
         return classObjectList;
     }
     
-    
-    
+    public void editorPopItem2ActionPerformed(java.awt.event.ActionEvent evt){
+        
+    }
 }
