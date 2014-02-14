@@ -658,9 +658,10 @@ public class Editor extends javax.swing.JFrame {
 
     private void editorPopItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editorPopItem2ActionPerformed
         
-        if(editorPane1.getIsDragging() >= 0) {
-            editorPane1.classObjectList.remove(editorPane1.getIsDragging() + 1);
-            editorPane1.setIsDragging(-1);
+        if(editorPane1.getIsDraggingWho() >= 0) {
+            editorPane1.classObjectList.remove(editorPane1.getIsDraggingWho());
+            editorPane1.setIsDraggingWho(-1);
+            obj--;
             repaint();
         }
     }//GEN-LAST:event_editorPopItem2ActionPerformed

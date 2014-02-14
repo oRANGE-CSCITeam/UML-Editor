@@ -6,6 +6,7 @@ package models;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -155,6 +156,8 @@ public class ClassObject {
     
     public void display(Graphics g) {
         //Draws the box for the entire classObject
+        g.setColor(new Color(0, 0, 0, 100));
+        g.fillRect(xPos + 3, yPos + 3, width, getHeight());
         g.setColor(color);
         g.fillRect(xPos, yPos, width, getHeight());
 

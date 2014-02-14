@@ -5,8 +5,11 @@
 
 package models;
 
+import java.awt.BasicStroke;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 
 /**
  *
@@ -38,11 +41,11 @@ public class Relationship  {
     public Relationship(ClassObject mainClass, ClassObject derivedClass, int relaType){
         mainC = mainClass;
         mX = (mainC.getWidth() / 2) + mainC.getxPos();
-        mY = (mainClass.getHeight()) + mainC.getyPos();
+        mY = (mainC.getHeight() / 2) + mainC.getyPos();
         
         derivedC = derivedClass;
         dX = (derivedC.getWidth() / 2) + derivedC.getxPos();
-        dY = derivedC.getyPos();
+        dY = (derivedC.getHeight() / 2) + derivedC.getyPos();
         
         rType = relaType;
         
@@ -50,13 +53,14 @@ public class Relationship  {
     
     public void update() {
         mX = (mainC.getWidth() / 2) + mainC.getxPos();
-        mY = (mainC.getHeight()) + mainC.getyPos();
+        mY = (mainC.getHeight() / 2) + mainC.getyPos();
         
         dX = (derivedC.getWidth() / 2) + derivedC.getxPos();
-        dY = derivedC.getyPos();
+        dY = (derivedC.getHeight() / 2) + derivedC.getyPos();
     }
     
     public void drawLines(Graphics g){
+        g.setColor(Color.black);
         g.drawLine(mX, mY, dX, dY);    
     }
 
