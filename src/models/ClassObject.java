@@ -128,7 +128,11 @@ public class ClassObject {
     }
 
     public int getHeight() {
-        return height;
+        if(operations.size() > 0 && attributes.size() == 0) {
+            return height + 20;
+        } else {
+            return height;
+        } 
     }
 
     public void setxPos(int xPos) {
@@ -152,11 +156,7 @@ public class ClassObject {
     public void display(Graphics g) {
         //Draws the box for the entire classObject
         g.setColor(color);
-        if(operations.size() > 0 && attributes.size() == 0) {
-            g.fillRect(xPos, yPos, width, height + 20);
-        } else {
-            g.fillRect(xPos, yPos, width, height);
-        }
+        g.fillRect(xPos, yPos, width, getHeight());
 
         //Draws border for name
         g.setColor(Color.black);
