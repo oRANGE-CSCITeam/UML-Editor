@@ -387,6 +387,11 @@ public class Editor extends javax.swing.JFrame {
         editorPopMenu.add(editorPopItem1);
 
         editorPopItem2.setText("Delete");
+        editorPopItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editorPopItem2ActionPerformed(evt);
+            }
+        });
         editorPopMenu.add(editorPopItem2);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -632,7 +637,20 @@ public class Editor extends javax.swing.JFrame {
             addClassDialog.setVisible(true);
             this.setEnabled(false);
         }
+        if(evt.isPopupTrigger() && editorPane1.isShowPopUp()) {
+            editorPopMenu.show(evt.getComponent(), evt.getX(), evt.getY());
+            editorPane1.togglePopUp();
+        }
     }//GEN-LAST:event_editorPane1MousePressed
+
+    private void editorPopItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editorPopItem2ActionPerformed
+        
+        if(editorPane1.getIsDragging() >= 0) {
+            editorPane1.classObjectList.remove(editorPane1.getIsDragging() + 1);
+            editorPane1.setIsDragging(-1);
+            repaint();
+        }
+    }//GEN-LAST:event_editorPopItem2ActionPerformed
 
     
     /**

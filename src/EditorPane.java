@@ -25,9 +25,7 @@ public class EditorPane extends JPanel {
     private int isDragging;
     private int xOffSet, yOffSet;
     private int j = 0;
-    private JPopupMenu editorPopMenu;
-    private JMenuItem editorPopItem1;
-    private JMenuItem editorPopItem2;
+
     private boolean showPopUp;
     ArrayList<ClassObject> classObjectList = new ArrayList();
 
@@ -37,16 +35,6 @@ public class EditorPane extends JPanel {
         //This is to determine which of the classObjectes is being dragged in the List
         isDragging = -1;
         showPopUp = false;
-        
-        editorPopMenu = new JPopupMenu();
-        editorPopItem1 = new JMenuItem("Edit");
-        editorPopItem2 = new JMenuItem("Delete");
-        editorPopMenu.add(editorPopItem1);
-        editorPopMenu.add(editorPopItem2);
-        //setComponentPopupMenu(editorPopMenu);
-        
-        
-        
         
         //This will determine which is class object is being clicked on to be dragged
         addMouseListener(new MouseAdapter() {
@@ -58,8 +46,8 @@ public class EditorPane extends JPanel {
                                 && (me.getX() < (classObjectList.get(i).getWidth() + classObjectList.get(i).getxPos()))
                                 && (me.getY() < (classObjectList.get(i).getHeight()) + classObjectList.get(i).getyPos())) {
                             if(me.isPopupTrigger()) {
-                                editorPopMenu.show(me.getComponent(), me.getX(), me.getY());
                                 togglePopUp();
+                                isDragging = i;
                             } else {
                                 isDragging = i;
                                 xOffSet = me.getX() - classObjectList.get(i).getxPos();
@@ -74,7 +62,7 @@ public class EditorPane extends JPanel {
         //This is to reset the class object being dragged to none
         addMouseListener(new MouseAdapter() {
             public void mouseReleased(MouseEvent evt) {
-                if(isDragging >= 0) {
+                if(isDragging >= 0 && showPopUp == false) {
                     isDragging = -1;
                 }
             }
@@ -138,8 +126,21 @@ public class EditorPane extends JPanel {
             canAddClassObject = false;
         }
     }
+
+    public boolean isShowPopUp() {
+        return showPopUp;
+    }
+
+    public int getIsDragging() {
+        return isDragging;
+    }
+
+    public void setIsDragging(int isDragging) {
+        this.isDragging = isDragging;
+    }
     
-        public void togglePopUp() {
+    
+    public void togglePopUp() {
         if (!showPopUp) {
             showPopUp = true;
         } else {
@@ -153,9 +154,5 @@ public class EditorPane extends JPanel {
 
     public ArrayList<ClassObject> getClassObjectList() {
         return classObjectList;
-    }
-    
-    public void editorPopItem2ActionPerformed(java.awt.event.ActionEvent evt){
-        
     }
 }
