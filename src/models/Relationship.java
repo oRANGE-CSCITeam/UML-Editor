@@ -12,12 +12,16 @@ import java.awt.Graphics;
  *
  * @author marcos
  */
-public class Relationship extends Component {
+public class Relationship  {
+    private ClassObject mainC;
+    private int mX;
+    private int mY;
     
+    private ClassObject derivedC;
+    private int dX;
+    private int dY;
     
-    
-    
-    
+    private int rType;
     
     /**
      * Creates a new Relationship
@@ -33,14 +37,80 @@ public class Relationship extends Component {
         
     public Relationship(ClassObject mainClass, ClassObject derivedClass,
             int mainX, int mainY, int derivedX, int derivedY, int relaType){
+        mainC = mainClass;
+        mX = mainX;
+        mY = mainY;
+        
+        derivedC = derivedClass;
+        dX = derivedX;
+        dY = derivedY;
+        
+        rType = relaType;
         
         
     }
     
     
     public void drawLines(Graphics g){
+        g.drawLine(mX, mY, dX, dY);
         
         
+    }
+
+    public ClassObject getMainC() {
+        return mainC;
+    }
+
+    public int getmX() {
+        return mX;
+    }
+
+    public int getmY() {
+        return mY;
+    }
+
+    public ClassObject getDerivedC() {
+        return derivedC;
+    }
+
+    public int getdX() {
+        return dX;
+    }
+
+    public int getdY() {
+        return dY;
+    }
+
+    public int getrType() {
+        return rType;
+    }
+
+    public void setMainC(ClassObject mainC) {
+        this.mainC = mainC;
+    }
+
+    public void setmX(int mX) {
+        this.mX = mX;
+    }
+
+    public void setmY(int mY) {
+        this.mY = mY;
+    }
+
+    public void setDerivedC(ClassObject derivedC) {
+        this.derivedC = derivedC;
+    }
+
+    public void setdX(int dX) {
+        this.dX = dX;
+    }
+
+    public void setdY(int dY) {
+        this.dY = dY;
+    }
+
+    public void setrType(int rType) {
+        this.rType = rType;
     }
     
     
