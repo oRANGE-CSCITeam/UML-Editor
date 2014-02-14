@@ -8,13 +8,12 @@ import javax.swing.JPanel;
 import models.ClassObject;
 import models.Relationship;
 
-/*
+
+/**
  * The EditorPane is the container which will draw all of the 2D graphics of the
  * UML Editor. It has to maintain lists of the different types of objects it holds.
- */
-/**
- *
- * @author marcos
+ * 
+ * @author oRANGE
  */
 public class EditorPane extends JPanel {
 
