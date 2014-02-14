@@ -35,15 +35,14 @@ public class Relationship  {
      * @param relaType relationship type.
      */
         
-    public Relationship(ClassObject mainClass, ClassObject derivedClass,
-            int mainX, int mainY, int derivedX, int derivedY, int relaType){
+    public Relationship(ClassObject mainClass, ClassObject derivedClass, int relaType){
         mainC = mainClass;
-        mX = mainX;
-        mY = mainY;
+        mX = (mainC.getWidth() / 2) + mainC.getxPos();
+        mY = (mainClass.getHeight()) + mainC.getyPos();
         
         derivedC = derivedClass;
-        dX = derivedX;
-        dY = derivedY;
+        dX = (derivedC.getWidth() / 2) + derivedC.getxPos();
+        dY = derivedC.getyPos();
         
         rType = relaType;
         
@@ -52,9 +51,7 @@ public class Relationship  {
     
     
     public void drawLines(Graphics g){
-        g.drawLine(mX, mY, dX, dY);
-        
-        
+        g.drawLine(mX, mY, dX, dY);    
     }
 
     public ClassObject getMainC() {
