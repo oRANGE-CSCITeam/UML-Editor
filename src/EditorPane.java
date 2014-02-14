@@ -1,14 +1,9 @@
 
-import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.ArrayList;
-import javax.swing.JMenuItem;
 import javax.swing.JPanel;
-import javax.swing.JPopupMenu;
 import models.ClassObject;
 import models.Relationship;
 
@@ -75,6 +70,7 @@ public class EditorPane extends JPanel {
             public void mouseDragged(MouseEvent evt) {
                 if (classObjectList.size() > 0 && isDragging >= 0) {
                     moveClassObject(classObjectList.get(isDragging), evt.getX() - xOffSet, evt.getY() - yOffSet);
+                    moveRelationship(relationList.get(0), classObjectList.get(isDragging).getWidth() / 2 + classObjectList.get(isDragging).getxPos(), classObjectList.get(isDragging).getHeight() + classObjectList.get(isDragging).getyPos());
                     repaint(); 
                 }
             }
@@ -105,6 +101,32 @@ public class EditorPane extends JPanel {
             repaint(classObject.getxPos(), classObject.getxPos(),
                     classObject.getWidth() + OFFSET,
                     classObject.getHeight() + OFFSET);
+        }
+    }
+    
+        private void moveRelationship(Relationship relation, int x, int y) {
+        // Current classObject state, stored as final variables 
+        // to avoid repeat invocations of the same methods.
+        final int CURR_X = relation.getmX();
+        final int CURR_Y = relation.getmY();
+        final int CURR_W = relation.getdX();
+        final int CURR_H = relation.getdY();
+        final int OFFSET = 1;
+
+        if ((CURR_X != x) || (CURR_Y != y)) {
+
+            // The classObject is moving, repaint background 
+            // over the old classObject location. 
+            repaint(CURR_X, CURR_Y, CURR_W + OFFSET, CURR_H + OFFSET);
+
+            // Update coordinates.
+            relation.setmX(x);
+            relation.setmY(y);
+
+            // Repaint the classObject at the new location.
+            repaint(relation.getmX(), relation.getmX(),
+                    relation.getdX() + OFFSET,
+                    relation.getdY() + OFFSET);
         }
     }
 
