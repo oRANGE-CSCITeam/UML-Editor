@@ -18,6 +18,7 @@ public class Editor extends javax.swing.JFrame {
     private int addClassX, addClassY, obj;
     private Color classColor;
     private ArrayList<Attribute> addAttributeList;
+    private ArrayList<String> addOperationList;
 
     /**
      * Creates new form Editor
@@ -25,6 +26,7 @@ public class Editor extends javax.swing.JFrame {
     public Editor() {
         initComponents();
         addAttributeList = new ArrayList();
+        addOperationList = new ArrayList();
         classColor = Color.orange;
     }
 
@@ -65,6 +67,10 @@ public class Editor extends javax.swing.JFrame {
         colorDialog = new javax.swing.JDialog();
         classColorChooser = new javax.swing.JColorChooser();
         chooseColorButton = new javax.swing.JButton();
+        addOperationDialog = new javax.swing.JDialog();
+        operationNameLabel = new javax.swing.JLabel();
+        operationNameText = new javax.swing.JTextField();
+        addOperationButton2 = new javax.swing.JButton();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         editorPane1 = new EditorPane();
         jToolBar1 = new javax.swing.JToolBar();
@@ -114,6 +120,11 @@ public class Editor extends javax.swing.JFrame {
         });
 
         addOperationButton.setText("Add");
+        addOperationButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addOperationButtonActionPerformed(evt);
+            }
+        });
 
         removeOperationButton.setText("Remove");
         removeOperationButton.addActionListener(new java.awt.event.ActionListener() {
@@ -329,6 +340,45 @@ public class Editor extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        operationNameLabel.setText("Operation Name");
+
+        addOperationButton2.setText("Add");
+        addOperationButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addOperationButton2ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout addOperationDialogLayout = new javax.swing.GroupLayout(addOperationDialog.getContentPane());
+        addOperationDialog.getContentPane().setLayout(addOperationDialogLayout);
+        addOperationDialogLayout.setHorizontalGroup(
+            addOperationDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, addOperationDialogLayout.createSequentialGroup()
+                .addGroup(addOperationDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, addOperationDialogLayout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addGroup(addOperationDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(addOperationDialogLayout.createSequentialGroup()
+                                .addComponent(operationNameLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 124, Short.MAX_VALUE))
+                            .addComponent(operationNameText)))
+                    .addGroup(addOperationDialogLayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(addOperationButton2)))
+                .addGap(18, 18, 18))
+        );
+        addOperationDialogLayout.setVerticalGroup(
+            addOperationDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(addOperationDialogLayout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(operationNameLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(operationNameText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(addOperationButton2)
+                .addContainerGap())
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBounds(new java.awt.Rectangle(300, 200, 913, 536));
 
@@ -507,7 +557,12 @@ public class Editor extends javax.swing.JFrame {
     }//GEN-LAST:event_removeAttributeButtonActionPerformed
 
     private void removeOperationButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeOperationButtonActionPerformed
-        // TODO add your handling code here:
+        if (operationsList.getSelectedIndices().length > 0 && addOperationList.size() > 0) {
+            for (int i = 0; i < operationsList.getSelectedIndices().length; i++) {
+                addOperationList.remove(operationsList.getSelectedIndices()[0]);
+            }
+            operationsList.setListData(addOperationList.toArray());
+        }
     }//GEN-LAST:event_removeOperationButtonActionPerformed
 
     private void emptyClassButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emptyClassButtonActionPerformed
@@ -521,7 +576,6 @@ public class Editor extends javax.swing.JFrame {
     }//GEN-LAST:event_addAttributeButtonActionPerformed
 
     private void createClassButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createClassButtonActionPerformed
-
         String className = classNameTextField.getText();
 
         if (className.equals("")) {
@@ -533,7 +587,10 @@ public class Editor extends javax.swing.JFrame {
             for (int i = 0; i < addAttributeList.size(); i++) {
                 editorPane1.getClassObjectList().get(obj).addAttribute(addAttributeList.get(i).getAttributeName(), addAttributeList.get(i).isType());
             }
-
+            for (int i = 0; i < addOperationList.size(); i++) {
+                editorPane1.getClassObjectList().get(obj).addOperation(addOperationList.get(i));
+            }
+            
             obj++;
             editorPane1.repaint();
             addClassDialog.dispose();
@@ -541,7 +598,9 @@ public class Editor extends javax.swing.JFrame {
             jToggleButton3.doClick();
             editorPane1.toggleCanAddClassObject();
             addAttributeList.clear();
+            addOperationList.clear();
             attributeList.setListData(new String[0]);
+            operationsList.setListData(new String[0]);
             this.setEnabled(true);
         }
     }//GEN-LAST:event_createClassButtonActionPerformed
@@ -551,6 +610,19 @@ public class Editor extends javax.swing.JFrame {
         editorPane1.toggleCanAddClassObject();
         this.setEnabled(true);
     }//GEN-LAST:event_addClassDialogWindowClosing
+
+    private void addOperationButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addOperationButtonActionPerformed
+        addOperationDialog.setBounds(addClassDialog.getX() + 50, addClassDialog.getY() + 100, 300, 120);
+        addOperationDialog.setVisible(true);
+    }//GEN-LAST:event_addOperationButtonActionPerformed
+
+    private void addOperationButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addOperationButton2ActionPerformed
+        String operation = operationNameText.getText();
+        addOperationList.add(operation);
+        operationsList.setListData(addOperationList.toArray());
+        operationNameText.setText("");
+        addOperationDialog.dispose();
+    }//GEN-LAST:event_addOperationButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -599,6 +671,8 @@ public class Editor extends javax.swing.JFrame {
     private javax.swing.JDialog addAttributeDialog;
     private javax.swing.JDialog addClassDialog;
     private javax.swing.JButton addOperationButton;
+    private javax.swing.JButton addOperationButton2;
+    private javax.swing.JDialog addOperationDialog;
     private javax.swing.JList attributeList;
     private javax.swing.JLabel attributeNameLabel;
     private javax.swing.JTextField attributeNameText;
@@ -623,6 +697,8 @@ public class Editor extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JToggleButton jToggleButton3;
     private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JLabel operationNameLabel;
+    private javax.swing.JTextField operationNameText;
     private javax.swing.JLabel operationsLabel;
     private javax.swing.JList operationsList;
     private javax.swing.JScrollPane operationsScroll;

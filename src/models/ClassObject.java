@@ -73,6 +73,7 @@ public class ClassObject {
         if(!operationName.equals("")){
             operations.add(operationName);
             this.width = setWidth() * widthScale + 10;
+            this.height += 20;
         }
     }
 
@@ -151,22 +152,48 @@ public class ClassObject {
     public void display(Graphics g) {
         //Draws the box for the entire classObject
         g.setColor(color);
-        g.fillRect(xPos, yPos, width, height);
+        if(operations.size() > 0 && attributes.size() == 0) {
+            g.fillRect(xPos, yPos, width, height + 20);
+        } else {
+            g.fillRect(xPos, yPos, width, height);
+        }
 
         //Draws border for name
         g.setColor(Color.black);
         g.drawRect(xPos, yPos, width, 20);
 
         //Draws border for attributes
-        g.drawRect(xPos, yPos + 20, width, attributes.size() * 20);
+        if(operations.size() > 0 && attributes.size() == 0){
+            g.drawRect(xPos, yPos + 20, width, 20);
+        } else {
+            g.drawRect(xPos, yPos + 20, width, attributes.size() * 20);
+        }
+        
+        //Draws border for operations
+        if(operations.size() > 0 && attributes.size() == 0) {
+            g.drawRect(xPos, yPos + 40, width, operations.size() * 20);
+        } else {
+            g.drawRect(xPos, yPos + (attributes.size() * 20) + 20, width, operations.size() * 20);
+        }
 
         //Draws the name
         g.setColor(Color.black);
         g.drawString(name, xPos + 5, yPos + 15);
 
         //Draws Attributes
-        for (int i = 0; i < attributes.size(); i++) {
+        for(int i = 0; i < attributes.size(); i++) {
             g.drawString(attributes.get(i), xPos + 5, (yPos + 35) + (i * 20));
+        }
+        
+        //Draw Operations
+        if(operations.size() > 0 && attributes.size() == 0) {
+            for(int i = 0; i < operations.size(); i++) {
+                g.drawString(operations.get(i), xPos + 5, (20 + (yPos + 35)) + (i * 20));
+            }
+        } else {
+            for(int i = 0; i < operations.size(); i++) {
+                g.drawString(operations.get(i), xPos + 5, ((attributes.size() * 20) + (yPos + 35)) + (i * 20));
+            }
         }
     }
 
