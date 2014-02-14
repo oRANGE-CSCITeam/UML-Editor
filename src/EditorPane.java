@@ -1,10 +1,13 @@
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import javax.swing.BorderFactory;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
 import models.ClassObject;
 import models.Relationship;
 
@@ -21,6 +24,7 @@ public class EditorPane extends JPanel {
     private boolean isDragging;
     private int isDraggingWho;
     private int xOffSet, yOffSet;
+    private Border classSelected = BorderFactory.createLineBorder(Color.cyan,5);
 
     private boolean showPopUp;
     ArrayList<ClassObject> classObjectList = new ArrayList();
@@ -124,6 +128,7 @@ public class EditorPane extends JPanel {
             classObjectList.get(i).display(g);
         }
         
+        
     }
 
     //This method toggles if a new Class object can be added
@@ -171,4 +176,6 @@ public class EditorPane extends JPanel {
     public ArrayList<ClassObject> getClassObjectList() {
         return classObjectList;
     }
+    
+    
 }

@@ -7,6 +7,8 @@ import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import javax.swing.BorderFactory;
+import javax.swing.border.Border;
 
 /**
  * This object represents the Class Object or box for the UML editor to hold all
@@ -28,6 +30,7 @@ public class ClassObject {
     private boolean isClicked = false;
     private int widthScale = 7;
     private Color color = Color.orange;
+    private Border classSelected = BorderFactory.createLineBorder(Color.cyan,5);
 
     /**
      * Constructor for the class object
@@ -332,5 +335,11 @@ public class ClassObject {
     public int setWidth(){
         int max = Math.max(name.length(), getLongestAttribute());
         return Math.max(max, getLongestOperation());
+    }
+    
+    public void highlightClass(Graphics g){
+        if(this.isClicked()){
+           
+        }
     }
 }
