@@ -70,7 +70,6 @@ public class EditorPane extends JPanel {
             public void mouseDragged(MouseEvent evt) {
                 if (classObjectList.size() > 0 && isDragging >= 0) {
                     moveClassObject(classObjectList.get(isDragging), evt.getX() - xOffSet, evt.getY() - yOffSet);
-                    //moveRelationship(relationList.get(0), relationList.get(0).getmX(), relationList.get(0).getmY());
                     repaint(); 
                 }
             }
@@ -103,32 +102,6 @@ public class EditorPane extends JPanel {
                     classObject.getHeight() + OFFSET);
         }
     }
-    
-        private void moveRelationship(Relationship relation, int x, int y) {
-        // Current classObject state, stored as final variables 
-        // to avoid repeat invocations of the same methods.
-        final int CURR_X = relation.getmX();
-        final int CURR_Y = relation.getmY();
-        final int CURR_W = relation.getdX();
-        final int CURR_H = relation.getdY();
-        final int OFFSET = 1;
-
-        if ((CURR_X != x) || (CURR_Y != y)) {
-
-            // The classObject is moving, repaint background 
-            // over the old classObject location. 
-            repaint(CURR_X, CURR_Y, CURR_W + OFFSET, CURR_H + OFFSET);
-
-            // Update coordinates.
-            relation.setmX(x);
-            relation.setmY(y);
-
-            // Repaint the classObject at the new location.
-            repaint(relation.getmX(), relation.getmX(),
-                    relation.getdX() + OFFSET,
-                    relation.getdY() + OFFSET);
-        }
-    }
 
     //This method paints all components in the EditorPane
     public void paintComponent(Graphics g) {
@@ -143,7 +116,7 @@ public class EditorPane extends JPanel {
         
         //Draw All Relationship Lines
         for(int i = 0; i < relationList.size(); i++) {
-            relationList.get(i).update(classObjectList.get(0), classObjectList.get(1));
+            relationList.get(i).update();
             relationList.get(i).drawLines(g);
         }
     }
