@@ -72,6 +72,9 @@ public class Editor extends javax.swing.JFrame {
         operationNameLabel = new javax.swing.JLabel();
         operationNameText = new javax.swing.JTextField();
         addOperationButton2 = new javax.swing.JButton();
+        editorPopMenu = new javax.swing.JPopupMenu();
+        editorPopItem1 = new javax.swing.JMenuItem();
+        editorPopItem2 = new javax.swing.JMenuItem();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         editorPane1 = new EditorPane();
         jToolBar1 = new javax.swing.JToolBar();
@@ -379,6 +382,12 @@ public class Editor extends javax.swing.JFrame {
                 .addComponent(addOperationButton2)
                 .addContainerGap())
         );
+
+        editorPopItem1.setText("Edit");
+        editorPopMenu.add(editorPopItem1);
+
+        editorPopItem2.setText("Delete");
+        editorPopMenu.add(editorPopItem2);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBounds(new java.awt.Rectangle(300, 200, 913, 536));
@@ -689,6 +698,9 @@ public class Editor extends javax.swing.JFrame {
     private javax.swing.JDialog colorDialog;
     private javax.swing.JButton createClassButton;
     private EditorPane editorPane1;
+    private javax.swing.JMenuItem editorPopItem1;
+    private javax.swing.JMenuItem editorPopItem2;
+    private javax.swing.JPopupMenu editorPopMenu;
     private javax.swing.JButton emptyClassButton;
     private javax.swing.JLabel emptyClassLabel;
     private javax.swing.JDialog emptyClassWarningDialog;
