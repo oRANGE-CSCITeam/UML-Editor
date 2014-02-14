@@ -8,6 +8,7 @@ import javax.swing.JTextField;
 import javax.swing.ListModel;
 import models.Attribute;
 import models.ClassObject;
+import models.Relationship;
 
 /**
  * Editor where the main UML Diagram will be created
@@ -79,6 +80,7 @@ public class Editor extends javax.swing.JFrame {
         editorPane1 = new EditorPane();
         jToolBar1 = new javax.swing.JToolBar();
         jToggleButton3 = new javax.swing.JToggleButton();
+        relationTestButton = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -435,6 +437,17 @@ public class Editor extends javax.swing.JFrame {
         });
         jToolBar1.add(jToggleButton3);
 
+        relationTestButton.setText("Relation");
+        relationTestButton.setFocusable(false);
+        relationTestButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        relationTestButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        relationTestButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                relationTestButtonActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(relationTestButton);
+
         jMenu1.setText("File");
         jMenu1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -652,6 +665,12 @@ public class Editor extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_editorPopItem2ActionPerformed
 
+    private void relationTestButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_relationTestButtonActionPerformed
+        Relationship relation;
+        relation = new Relationship(editorPane1.classObjectList.get(0), editorPane1.classObjectList.get(1), 1);
+        editorPane1.getRelationList().add(relation);
+    }//GEN-LAST:event_relationTestButtonActionPerformed
+
     
     /**
      * @param args the command line arguments
@@ -736,6 +755,7 @@ public class Editor extends javax.swing.JFrame {
     private javax.swing.JScrollPane operationsScroll;
     private javax.swing.JRadioButton privateRadio;
     private javax.swing.JRadioButton publicRadio;
+    private javax.swing.JButton relationTestButton;
     private javax.swing.JButton removeAttributeButton;
     private javax.swing.JButton removeOperationButton;
     // End of variables declaration//GEN-END:variables

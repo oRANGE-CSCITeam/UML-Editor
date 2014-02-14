@@ -10,6 +10,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import models.ClassObject;
+import models.Relationship;
 
 /*
  * The EditorPane is the container which will draw all of the 2D graphics of the
@@ -28,6 +29,7 @@ public class EditorPane extends JPanel {
 
     private boolean showPopUp;
     ArrayList<ClassObject> classObjectList = new ArrayList();
+    ArrayList<Relationship> relationList = new ArrayList();
 
     public EditorPane() {
         //If the add class button toggled "on" this will be true and a new classObject can be added
@@ -116,6 +118,11 @@ public class EditorPane extends JPanel {
         for (int i = 0; i < classObjectList.size(); i++) {
             classObjectList.get(i).display(g);
         }
+        
+        //Draw All Relationship Lines
+        for(int i = 0; i < relationList.size(); i++) {
+            relationList.get(i).drawLines(g);
+        }
     }
 
     //This method sets if a new Class object can be added
@@ -146,6 +153,14 @@ public class EditorPane extends JPanel {
         } else {
             showPopUp = false;
         }
+    }
+
+    public ArrayList<Relationship> getRelationList() {
+        return relationList;
+    }
+
+    public void setRelationList(ArrayList<Relationship> relationList) {
+        this.relationList = relationList;
     }
 
     public boolean isCanAddClassObject() {
