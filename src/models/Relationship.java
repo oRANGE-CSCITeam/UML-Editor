@@ -49,6 +49,13 @@ public class Relationship  {
         
     }
     
+    public void update(ClassObject mainClass, ClassObject derivedClass) {
+        mX = (mainClass.getWidth() / 2) + mainClass.getxPos();
+        mY = (mainClass.getHeight()) + mainClass.getyPos();
+        
+        dX = (derivedClass.getWidth() / 2) + derivedClass.getxPos();
+        dY = derivedClass.getyPos();
+    }
     
     public void drawLines(Graphics g){
         g.drawLine(mX, mY, dX, dY);    

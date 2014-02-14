@@ -70,7 +70,7 @@ public class EditorPane extends JPanel {
             public void mouseDragged(MouseEvent evt) {
                 if (classObjectList.size() > 0 && isDragging >= 0) {
                     moveClassObject(classObjectList.get(isDragging), evt.getX() - xOffSet, evt.getY() - yOffSet);
-                    moveRelationship(relationList.get(0), classObjectList.get(isDragging).getWidth() / 2 + classObjectList.get(isDragging).getxPos(), classObjectList.get(isDragging).getHeight() + classObjectList.get(isDragging).getyPos());
+                    //moveRelationship(relationList.get(0), relationList.get(0).getmX(), relationList.get(0).getmY());
                     repaint(); 
                 }
             }
@@ -143,6 +143,7 @@ public class EditorPane extends JPanel {
         
         //Draw All Relationship Lines
         for(int i = 0; i < relationList.size(); i++) {
+            relationList.get(i).update(classObjectList.get(0), classObjectList.get(1));
             relationList.get(i).drawLines(g);
         }
     }
