@@ -85,7 +85,6 @@ public class Editor extends javax.swing.JFrame {
         jToolBar1 = new javax.swing.JToolBar();
         jToggleButton3 = new javax.swing.JToggleButton();
         addRelationToggle = new javax.swing.JToggleButton();
-        relationTestButton = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -497,17 +496,6 @@ public class Editor extends javax.swing.JFrame {
         });
         jToolBar1.add(addRelationToggle);
 
-        relationTestButton.setText("Relation");
-        relationTestButton.setFocusable(false);
-        relationTestButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        relationTestButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        relationTestButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                relationTestButtonActionPerformed(evt);
-            }
-        });
-        jToolBar1.add(relationTestButton);
-
         jMenu1.setText("File");
         jMenu1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -733,10 +721,6 @@ public class Editor extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_editorPopItem2ActionPerformed
 
-    private void relationTestButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_relationTestButtonActionPerformed
-
-    }//GEN-LAST:event_relationTestButtonActionPerformed
-
     private void addRelationToggleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addRelationToggleActionPerformed
         editorPane1.toggleTryRelation();
         if(editorPane1.isTryRelationship() && editorPane1.relationCandidates.size() > 0) {
@@ -746,7 +730,7 @@ public class Editor extends javax.swing.JFrame {
             editorPane1.setSelectedClassObject(-1);
             editorPane1.repaint();
             editorPane1.setTryRelationship(false);
-    }
+        }
     }//GEN-LAST:event_addRelationToggleActionPerformed
 
     private void addRelationButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addRelationButtonActionPerformed
@@ -856,7 +840,6 @@ public class Editor extends javax.swing.JFrame {
     private javax.swing.JScrollPane operationsScroll;
     private javax.swing.JRadioButton privateRadio;
     private javax.swing.JRadioButton publicRadio;
-    private javax.swing.JButton relationTestButton;
     private javax.swing.JComboBox relationTypeCombo;
     private javax.swing.JLabel relationTypeLabel;
     private javax.swing.JButton removeAttributeButton;
