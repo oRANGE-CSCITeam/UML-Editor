@@ -1,13 +1,10 @@
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-import javax.swing.BorderFactory;
 import javax.swing.JPanel;
-import javax.swing.border.Border;
 import models.ClassObject;
 import models.Relationship;
 
@@ -22,9 +19,8 @@ public class EditorPane extends JPanel {
 
     private boolean canAddClassObject;
     private boolean isDragging;
-    private int isDraggingWho;
+    private int isDraggingWho, selectedClassObject;
     private int xOffSet, yOffSet;
-    private Border classSelected = BorderFactory.createLineBorder(Color.cyan,5);
 
     private boolean showPopUp;
     ArrayList<ClassObject> classObjectList = new ArrayList();
@@ -36,12 +32,21 @@ public class EditorPane extends JPanel {
         //This is to determine which of the classObjectes is being dragged in the List
         isDraggingWho = -1;
         isDragging = false;
+        
+        selectedClassObject = -1;
         showPopUp = false;
         
         //This will determine which is class object is being clicked on to be dragged
         addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent me) {
                 if (classObjectList.size() > 0) {
+                    
+                    if(selectedClassObject >= 0){
+                        classObjectList.get(selectedClassObject).setIsSelected(false);
+                        selectedClassObject = -1;
+                        repaint();
+                    }
+                    
                     for (int i = 0; i < classObjectList.size(); i++) {
                         if ((me.getX() > classObjectList.get(i).getxPos())
                                 && (me.getY() > classObjectList.get(i).getyPos())
@@ -50,11 +55,17 @@ public class EditorPane extends JPanel {
                             if(me.isPopupTrigger()) {
                                 togglePopUp();
                                 isDraggingWho = i;
+                                selectedClassObject = i;
+                                classObjectList.get(selectedClassObject).setIsSelected(true);
+                                repaint();
                             } else {
                                 isDraggingWho = i;
                                 isDragging = true;
+                                selectedClassObject = i;
+                                classObjectList.get(selectedClassObject).setIsSelected(true);
                                 xOffSet = me.getX() - classObjectList.get(i).getxPos();
                                 yOffSet = me.getY() - classObjectList.get(i).getyPos();
+                                repaint();
                                 
                             }
                         }
@@ -66,7 +77,7 @@ public class EditorPane extends JPanel {
         //This is to reset the class object being dragged to none
         addMouseListener(new MouseAdapter() {
             public void mouseReleased(MouseEvent evt) {
-                if(isDraggingWho >= 0 && showPopUp == false && isDragging == true) {
+                if(isDraggingWho >= 0 && isDragging == true) {
                     isDraggingWho = -1;
                     isDragging = false;
                 }
@@ -76,7 +87,7 @@ public class EditorPane extends JPanel {
         //This will dragg the determine class object box
         addMouseMotionListener(new MouseAdapter() {
             public void mouseDragged(MouseEvent evt) {
-                if (classObjectList.size() > 0 && isDraggingWho >= 0) {
+                if (classObjectList.size() > 0 && isDraggingWho >= 0 && isDragging == true) {
                     moveClassObject(classObjectList.get(isDraggingWho), evt.getX() - xOffSet, evt.getY() - yOffSet);
                     repaint(); 
                 }
@@ -128,7 +139,6 @@ public class EditorPane extends JPanel {
             classObjectList.get(i).display(g);
         }
         
-        
     }
 
     //This method toggles if a new Class object can be added
@@ -175,6 +185,22 @@ public class EditorPane extends JPanel {
 
     public ArrayList<ClassObject> getClassObjectList() {
         return classObjectList;
+    }
+
+    public boolean isIsDragging() {
+        return isDragging;
+    }
+
+    public void setIsDragging(boolean isDragging) {
+        this.isDragging = isDragging;
+    }
+
+    public int getSelectedClassObject() {
+        return selectedClassObject;
+    }
+
+    public void setSelectedClassObject(int selectedClassObject) {
+        this.selectedClassObject = selectedClassObject;
     }
     
     

@@ -7,8 +7,6 @@ import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import javax.swing.BorderFactory;
-import javax.swing.border.Border;
 
 /**
  * This object represents the Class Object or box for the UML editor to hold all
@@ -27,10 +25,10 @@ public class ClassObject {
     private int yPos;
     private int width;
     private int height;
-    private boolean isClicked = false;
-    private int widthScale = 7;
-    private Color color = Color.orange;
-    private Border classSelected = BorderFactory.createLineBorder(Color.cyan,5);
+    private boolean isClicked;
+    private final int widthScale = 7;
+    private Color color;
+    private boolean isSelected;
 
     /**
      * Constructor for the class object
@@ -50,6 +48,10 @@ public class ClassObject {
 
         this.width = setWidth() * widthScale + 10;
         this.height = 20;
+        
+        color = Color.orange;
+        isClicked = false;
+        isSelected = false;
     }
 
     
@@ -280,6 +282,14 @@ public class ClassObject {
                 g.drawString(operations.get(i), xPos + 5, ((attributes.size() * 20) + (yPos + 35)) + (i * 20));
             }
         }
+        
+        //Draw Selected Highlight
+        if(isSelected){
+            for(int i = 0; i < 3; i++) {
+                g.setColor(Color.DARK_GRAY);
+                g.drawRect(xPos + i, yPos + i, width , getHeight());
+            }
+        }
     }
 
     /**
@@ -336,10 +346,14 @@ public class ClassObject {
         int max = Math.max(name.length(), getLongestAttribute());
         return Math.max(max, getLongestOperation());
     }
-    
-    public void highlightClass(Graphics g){
-        if(this.isClicked()){
-           
-        }
+
+    public boolean isIsSelected() {
+        return isSelected;
     }
+
+    public void setIsSelected(boolean isSelected) {
+        this.isSelected = isSelected;
+    }
+    
+    
 }

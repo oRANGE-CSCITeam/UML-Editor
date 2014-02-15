@@ -653,6 +653,7 @@ public class Editor extends javax.swing.JFrame {
         if(evt.isPopupTrigger() && editorPane1.isShowPopUp()) {
             editorPopMenu.show(evt.getComponent(), evt.getX(), evt.getY());
             editorPane1.togglePopUp();
+            editorPane1.setIsDragging(false);
         }
     }//GEN-LAST:event_editorPane1MousePressed
 
@@ -661,6 +662,7 @@ public class Editor extends javax.swing.JFrame {
         if(editorPane1.getIsDraggingWho() >= 0) {
             editorPane1.classObjectList.remove(editorPane1.getIsDraggingWho());
             editorPane1.setIsDraggingWho(-1);
+            editorPane1.setSelectedClassObject(-1);
             obj--;
             repaint();
         }
