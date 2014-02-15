@@ -1,6 +1,5 @@
 
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -17,14 +16,14 @@ import models.Relationship;
  */
 public class EditorPane extends JPanel {
 
-    private boolean canAddClassObject;
-    private boolean isDragging;
+    private boolean canAddClassObject, tryRelationship, isDragging, showPopUp, makeRelationship;
     private int isDraggingWho, selectedClassObject;
     private int xOffSet, yOffSet;
-
-    private boolean showPopUp;
+    
+    ArrayList<Integer> relationCandidates =  new ArrayList();
     ArrayList<ClassObject> classObjectList = new ArrayList();
     ArrayList<Relationship> relationList = new ArrayList();
+    
 
     public EditorPane() {
         //If the add class button toggled "on" this will be true and a new classObject can be added
@@ -33,42 +32,50 @@ public class EditorPane extends JPanel {
         isDraggingWho = -1;
         isDragging = false;
         
+        tryRelationship = false;
+        
         selectedClassObject = -1;
         showPopUp = false;
         
         //This will determine which is class object is being clicked on to be dragged
         addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent me) {
-                if (classObjectList.size() > 0) {
-                    
-                    if(selectedClassObject >= 0){
-                        classObjectList.get(selectedClassObject).setIsSelected(false);
-                        selectedClassObject = -1;
-                        repaint();
-                    }
-                    
-                    for (int i = 0; i < classObjectList.size(); i++) {
-                        if ((me.getX() > classObjectList.get(i).getxPos())
-                                && (me.getY() > classObjectList.get(i).getyPos())
-                                && (me.getX() < (classObjectList.get(i).getWidth() + classObjectList.get(i).getxPos()))
-                                && (me.getY() < (classObjectList.get(i).getHeight()) + classObjectList.get(i).getyPos())) {
-                            if(me.isPopupTrigger()) {
-                                togglePopUp();
-                                isDraggingWho = i;
-                                selectedClassObject = i;
-                                classObjectList.get(selectedClassObject).setIsSelected(true);
-                                repaint();
-                            } else {
-                                isDraggingWho = i;
-                                isDragging = true;
-                                selectedClassObject = i;
-                                classObjectList.get(selectedClassObject).setIsSelected(true);
-                                xOffSet = me.getX() - classObjectList.get(i).getxPos();
-                                yOffSet = me.getY() - classObjectList.get(i).getyPos();
-                                repaint();
-                                
-                            }
+
+                if(selectedClassObject >= 0 && classObjectList.size() > 0){
+                    classObjectList.get(selectedClassObject).setIsSelected(false);
+                    selectedClassObject = -1;
+                    repaint();
+                }
+                
+                for (int i = 0; i < classObjectList.size(); i++) {
+                    if ((me.getX() > classObjectList.get(i).getxPos())
+                            && (me.getY() > classObjectList.get(i).getyPos())
+                            && (me.getX() < (classObjectList.get(i).getWidth() + classObjectList.get(i).getxPos()))
+                            && (me.getY() < (classObjectList.get(i).getHeight()) + classObjectList.get(i).getyPos())) {
+                        if(me.isPopupTrigger()) {
+                            togglePopUp();
+                            isDraggingWho = i;
+                            selectedClassObject = i;
+                            classObjectList.get(selectedClassObject).setIsSelected(true);
+                            repaint();
+                        } else {
+                            isDraggingWho = i;
+                            isDragging = true;
+                            selectedClassObject = i;
+                            classObjectList.get(selectedClassObject).setIsSelected(true);
+                            xOffSet = me.getX() - classObjectList.get(i).getxPos();
+                            yOffSet = me.getY() - classObjectList.get(i).getyPos();
+                            repaint();
                         }
+                    }
+                }
+                if(!classObjectList.isEmpty()) {
+                    if(tryRelationship && relationCandidates.isEmpty() && selectedClassObject > -1) {
+                        relationCandidates.add(selectedClassObject);
+                    } else if(tryRelationship && relationCandidates.size() == 1 && selectedClassObject > -1) {
+                        classObjectList.get(relationCandidates.get(0)).setIsSelected(false);
+                        relationCandidates.add(selectedClassObject);
+                        makeRelationship = true;
                     }
                 }
             }
@@ -170,6 +177,14 @@ public class EditorPane extends JPanel {
             showPopUp = false;
         }
     }
+    
+        public void toggleTryRelation() {
+        if (!tryRelationship) {
+            tryRelationship = true;
+        } else {
+            tryRelationship = false;
+        }
+    }
 
     public ArrayList<Relationship> getRelationList() {
         return relationList;
@@ -202,6 +217,24 @@ public class EditorPane extends JPanel {
     public void setSelectedClassObject(int selectedClassObject) {
         this.selectedClassObject = selectedClassObject;
     }
+
+
+    public boolean isTryRelationship() {
+        return tryRelationship;
+    }
+
+    public void setTryRelationship(boolean tryRelationship) {
+        this.tryRelationship = tryRelationship;
+    }
+
+    public boolean isMakeRelationship() {
+        return makeRelationship;
+    }
+
+    public void setMakeRelationship(boolean makeRelationship) {
+        this.makeRelationship = makeRelationship;
+    }
+    
     
     
 }

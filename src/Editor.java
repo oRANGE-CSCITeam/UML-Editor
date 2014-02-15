@@ -76,10 +76,15 @@ public class Editor extends javax.swing.JFrame {
         editorPopMenu = new javax.swing.JPopupMenu();
         editorPopItem1 = new javax.swing.JMenuItem();
         editorPopItem2 = new javax.swing.JMenuItem();
+        makeRelationDialog = new javax.swing.JDialog();
+        addRelationButton = new javax.swing.JButton();
+        relationTypeCombo = new javax.swing.JComboBox();
+        relationTypeLabel = new javax.swing.JLabel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         editorPane1 = new EditorPane();
         jToolBar1 = new javax.swing.JToolBar();
         jToggleButton3 = new javax.swing.JToggleButton();
+        addRelationToggle = new javax.swing.JToggleButton();
         relationTestButton = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -396,6 +401,50 @@ public class Editor extends javax.swing.JFrame {
         });
         editorPopMenu.add(editorPopItem2);
 
+        makeRelationDialog.setTitle("Make a Relationship");
+        makeRelationDialog.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                makeRelationDialogWindowClosing(evt);
+            }
+        });
+
+        addRelationButton.setText("Ok");
+        addRelationButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addRelationButtonActionPerformed(evt);
+            }
+        });
+
+        relationTypeCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Association", "Aggregation", "Generalization", "Dependency", "Realization" }));
+
+        relationTypeLabel.setText("Type of Relationship");
+
+        javax.swing.GroupLayout makeRelationDialogLayout = new javax.swing.GroupLayout(makeRelationDialog.getContentPane());
+        makeRelationDialog.getContentPane().setLayout(makeRelationDialogLayout);
+        makeRelationDialogLayout.setHorizontalGroup(
+            makeRelationDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(makeRelationDialogLayout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addGroup(makeRelationDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(makeRelationDialogLayout.createSequentialGroup()
+                        .addComponent(relationTypeCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(42, 42, 42)
+                        .addComponent(addRelationButton))
+                    .addComponent(relationTypeLabel))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        makeRelationDialogLayout.setVerticalGroup(
+            makeRelationDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, makeRelationDialogLayout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addComponent(relationTypeLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(makeRelationDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(relationTypeCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(addRelationButton))
+                .addContainerGap(24, Short.MAX_VALUE))
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBounds(new java.awt.Rectangle(300, 200, 913, 536));
 
@@ -436,6 +485,17 @@ public class Editor extends javax.swing.JFrame {
             }
         });
         jToolBar1.add(jToggleButton3);
+
+        addRelationToggle.setText("Relationship");
+        addRelationToggle.setFocusable(false);
+        addRelationToggle.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        addRelationToggle.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        addRelationToggle.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addRelationToggleActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(addRelationToggle);
 
         relationTestButton.setText("Relation");
         relationTestButton.setFocusable(false);
@@ -655,6 +715,11 @@ public class Editor extends javax.swing.JFrame {
             editorPane1.togglePopUp();
             editorPane1.setIsDragging(false);
         }
+        if(editorPane1.isMakeRelationship()) { 
+            makeRelationDialog.setBounds(this.getX() + 200, this.getY() + 100, 290, 100);
+            makeRelationDialog.setVisible(true);
+            editorPane1.setMakeRelationship(false);
+        }
     }//GEN-LAST:event_editorPane1MousePressed
 
     private void editorPopItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editorPopItem2ActionPerformed
@@ -669,11 +734,40 @@ public class Editor extends javax.swing.JFrame {
     }//GEN-LAST:event_editorPopItem2ActionPerformed
 
     private void relationTestButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_relationTestButtonActionPerformed
-        Relationship relation;
-        relation = new Relationship(editorPane1.classObjectList.get(0), editorPane1.classObjectList.get(1), 1);
-        editorPane1.getRelationList().add(relation);
-        editorPane1.repaint();
+
     }//GEN-LAST:event_relationTestButtonActionPerformed
+
+    private void addRelationToggleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addRelationToggleActionPerformed
+        editorPane1.toggleTryRelation();
+        if(editorPane1.isTryRelationship() && editorPane1.relationCandidates.size() > 0) {
+            editorPane1.relationCandidates.clear();
+            editorPane1.setMakeRelationship(false);
+            editorPane1.classObjectList.get(editorPane1.getSelectedClassObject()).setIsSelected(false);
+            editorPane1.setSelectedClassObject(-1);
+            editorPane1.repaint();
+            editorPane1.setTryRelationship(false);
+    }
+    }//GEN-LAST:event_addRelationToggleActionPerformed
+
+    private void addRelationButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addRelationButtonActionPerformed
+        Relationship relation;
+        int type = relationTypeCombo.getSelectedIndex();
+        int mainClass = editorPane1.relationCandidates.get(0);
+        int derivedClass = editorPane1.relationCandidates.get(1);
+        relation = new Relationship(editorPane1.classObjectList.get(mainClass), editorPane1.classObjectList.get(derivedClass), type);
+        editorPane1.getRelationList().add(relation);
+        addRelationToggle.doClick();
+        editorPane1.relationCandidates.clear();
+        editorPane1.setMakeRelationship(false);
+        editorPane1.classObjectList.get(editorPane1.getSelectedClassObject()).setIsSelected(false);
+        editorPane1.setSelectedClassObject(-1);
+        makeRelationDialog.dispose();
+        editorPane1.repaint();
+    }//GEN-LAST:event_addRelationButtonActionPerformed
+
+    private void makeRelationDialogWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_makeRelationDialogWindowClosing
+        addRelationToggle.doClick();
+    }//GEN-LAST:event_makeRelationDialogWindowClosing
 
     
     /**
@@ -725,6 +819,8 @@ public class Editor extends javax.swing.JFrame {
     private javax.swing.JButton addOperationButton;
     private javax.swing.JButton addOperationButton2;
     private javax.swing.JDialog addOperationDialog;
+    private javax.swing.JButton addRelationButton;
+    private javax.swing.JToggleButton addRelationToggle;
     private javax.swing.JList attributeList;
     private javax.swing.JLabel attributeNameLabel;
     private javax.swing.JTextField attributeNameText;
@@ -752,6 +848,7 @@ public class Editor extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JToggleButton jToggleButton3;
     private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JDialog makeRelationDialog;
     private javax.swing.JLabel operationNameLabel;
     private javax.swing.JTextField operationNameText;
     private javax.swing.JLabel operationsLabel;
@@ -760,6 +857,8 @@ public class Editor extends javax.swing.JFrame {
     private javax.swing.JRadioButton privateRadio;
     private javax.swing.JRadioButton publicRadio;
     private javax.swing.JButton relationTestButton;
+    private javax.swing.JComboBox relationTypeCombo;
+    private javax.swing.JLabel relationTypeLabel;
     private javax.swing.JButton removeAttributeButton;
     private javax.swing.JButton removeOperationButton;
     // End of variables declaration//GEN-END:variables
