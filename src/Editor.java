@@ -21,8 +21,8 @@ public class Editor extends javax.swing.JFrame {
 
     private int addClassX, addClassY, obj;
     private Color classColor;
-    private ArrayList<Attribute> addAttributeList;
-    private ArrayList<String> addOperationList;
+    private final ArrayList<Attribute> addAttributeList;
+    private final ArrayList<String> addOperationList;
     ImageIcon icon = new ImageIcon("src/Orange_Logo.png");
     
     /**
