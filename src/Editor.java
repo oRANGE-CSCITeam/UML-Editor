@@ -1,6 +1,8 @@
 
 import java.awt.Color;
+import java.awt.Image;
 import java.util.ArrayList;
+import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JPopupMenu;
@@ -21,15 +23,19 @@ public class Editor extends javax.swing.JFrame {
     private Color classColor;
     private ArrayList<Attribute> addAttributeList;
     private ArrayList<String> addOperationList;
-
+    ImageIcon icon = new ImageIcon("src/Orange_Logo.png");
+    
     /**
      * Creates new form Editor
      */
     public Editor() {
+        
         initComponents();
         addAttributeList = new ArrayList();
         addOperationList = new ArrayList();
         classColor = Color.orange;
+        
+        
     }
 
     /**
@@ -446,6 +452,7 @@ public class Editor extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBounds(new java.awt.Rectangle(300, 200, 913, 536));
+        setIconImage(icon.getImage());
 
         jTabbedPane1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -780,7 +787,7 @@ public class Editor extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Editor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+        
         try {
             Thread.currentThread().sleep(2000);
         } catch (InterruptedException ex) {
