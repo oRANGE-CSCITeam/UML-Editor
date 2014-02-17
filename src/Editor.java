@@ -701,7 +701,7 @@ public class Editor extends javax.swing.JFrame {
         if(evt.isPopupTrigger() && editorPane1.isShowPopUp()) {
             editorPopMenu.show(evt.getComponent(), evt.getX(), evt.getY());
             editorPane1.togglePopUp();
-            editorPane1.setIsDragging(false);
+            editorPane1.setIsDragging(false);            
         }
         if(editorPane1.isMakeRelationship()) { 
             makeRelationDialog.setBounds(this.getX() + 200, this.getY() + 100, 290, 100);
