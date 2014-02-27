@@ -654,7 +654,7 @@ public class Editor extends javax.swing.JFrame {
             emptyClassWarningDialog.setBounds(addClassDialog.getX() + 150, addClassDialog.getY() + 100, 245, 155);
             emptyClassWarningDialog.setVisible(true);
         } else {
-            editorPane1.getClassObjectList().add(new ClassObject(className, addClassX - 30, addClassY - 20));
+            editorPane1.getClassObjectList().add(new ClassObject(className, addClassX - 30, addClassY - 20, obj));
             editorPane1.getClassObjectList().get(obj).setColor(classColor);
             for (int i = 0; i < addAttributeList.size(); i++) {
                 editorPane1.getClassObjectList().get(obj).addAttribute(addAttributeList.get(i).getAttributeName(), addAttributeList.get(i).isType());
@@ -720,6 +720,12 @@ public class Editor extends javax.swing.JFrame {
     private void editorPopItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editorPopItem2ActionPerformed
         
         if(editorPane1.getIsDraggingWho() >= 0) {
+            for(int i = 0; i <editorPane1.relationList.size(); i++) {
+                if((editorPane1.relationList.get(i).getMainC().getId() == editorPane1.classObjectList.get(editorPane1.getIsDraggingWho()).getId())
+                        || (editorPane1.relationList.get(i).getDerivedC().getId() == editorPane1.classObjectList.get(editorPane1.getIsDraggingWho()).getId())) {
+                    editorPane1.relationList.remove(i);
+                }
+            }
             editorPane1.classObjectList.remove(editorPane1.getIsDraggingWho());
             editorPane1.setIsDraggingWho(-1);
             editorPane1.setSelectedClassObject(-1);

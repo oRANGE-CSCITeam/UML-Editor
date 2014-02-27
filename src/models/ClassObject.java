@@ -17,6 +17,7 @@ import java.util.Map;
 public class ClassObject {
 
     private String name;
+    private int id;
     private ArrayList<String> attributes;
     private ArrayList<String> operations;
     private Map<ClassObject, Relationship> relationMap;
@@ -36,12 +37,13 @@ public class ClassObject {
      * @param xPos - the class x-coordinate
      * @param yPos - the class y-coordinate
      */
-    public ClassObject(String newName, int xPos, int yPos) {
+    public ClassObject(String newName, int xPos, int yPos, int id) {
         
         attributes = new ArrayList<String>();
         operations = new ArrayList<String>();
         relationMap = new HashMap<ClassObject, Relationship>();
-
+        
+        this.id = id;
         this.name = newName;
         this.xPos = xPos;
         this.yPos = yPos;
@@ -353,6 +355,10 @@ public class ClassObject {
 
     public void setIsSelected(boolean isSelected) {
         this.isSelected = isSelected;
+    }
+
+    public int getId() {
+        return id;
     }
     
     
